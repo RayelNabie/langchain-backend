@@ -5,7 +5,11 @@ import stylisticTs from '@stylistic/eslint-plugin-ts';
 export default [
   {
     files: ['**/*.ts', '**/*.tsx'],
-    ignores: ['**/node_modules/**', '**/dist/**'],
+    ignores: [
+      '**/node_modules/**',
+      '**/dist/**',
+      'src/types/**',
+    ],
     languageOptions: {
       parser: parserTs,
       parserOptions: {

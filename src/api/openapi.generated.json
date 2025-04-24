@@ -1,0 +1,64 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Langchain API",
+    "version": "1.0.0"
+  },
+  "components": {
+    "schemas": {
+      "LangchainRequest": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "example": "Vertel iets over AI"
+          }
+        },
+        "required": [
+          "prompt"
+        ]
+      },
+      "LangchainResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "example": "AI zegt: Hallo"
+          }
+        },
+        "required": [
+          "content"
+        ]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/langchain": {
+      "post": {
+        "summary": "Stuur een prompt naar het LLM-model",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LangchainRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Het AI antwoord",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LangchainResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,14 @@ import { logger } from '@/utils/logger';
 import { env } from '@/config/envConfig';
 import { errorHandlers } from '@/middleware/errorHandler';
 import { rateLimiter } from '@/middleware/rateLimiter';
-import appRouter from '@/routes/routes';
+import { appRouter } from '@/api/routes/routes';
+import { simpleTest } from '@/controllers/langchainController';
+import { swaggerRouter } from '@/api/routes/swagger.routes';
+import { z } from 'zod';
+import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
+
+extendZodWithOpenApi(z);
+
 
 const app: Express = express();
 
@@ -18,9 +25,11 @@ app.use(helmet());
 app.use(rateLimiter);
 
 // Routes
+app.use(swaggerRouter);
 app.use(appRouter);
 
 // Error handlers
 app.use(...errorHandlers);
+simpleTest();
 
 export { app, logger };

@@ -1,8 +1,8 @@
 import { OpenAPIRegistry, OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi';
 
 export function generateOpenAPIDocument() {
-  const registry = new OpenAPIRegistry([]);
-  const generator = new OpenApiGeneratorV3(registry.definitions);
+  const registry : OpenAPIRegistry = new OpenAPIRegistry([]);
+  const generator : OpenApiGeneratorV3= new OpenApiGeneratorV3(registry.definitions);
 
   return generator.generateDocument({
     openapi: '3.0.0',

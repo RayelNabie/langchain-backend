@@ -9,6 +9,7 @@
     "start": "tsx src/index.ts",
     "build": "tsup",
     "lint": "eslint . --ext .ts",
+    "typecheck": "tsc --noEmit",
     "format": "eslint . --ext .ts --fix",
     "test": "vitest run",
     "test:cov": "vitest run --coverage",

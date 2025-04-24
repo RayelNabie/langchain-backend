@@ -9,6 +9,7 @@
     "start": "tsx src/index.ts",
     "build": "tsup",
     "lint": "eslint . --ext .ts",
+    "typecheck": "tsc --noEmit && tsup src/index.ts --dts --silent",
     "format": "eslint . --ext .ts --fix",
     "test": "vitest run",
     "test:cov": "vitest run --coverage",
@@ -28,16 +29,16 @@
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.1.0",
     "http-status-codes": "^2.3.0",
-    "langchain": "^0.3.23",
+    "langchain": "^0.3.24",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0"
   },
   "devDependencies": {
+    "@asteasolutions/zod-to-openapi": "^7.3.0",
     "@eslint/js": "^9.25.1",
     "@stylistic/eslint-plugin-ts": "^4.2.0",
     "@types/cors": "^2.8.17",
-    "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.1",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
@@ -45,11 +46,13 @@
     "eslint": "^9.25.1",
     "husky": "^9.1.7",
     "openapi-typescript": "^7.6.1",
+    "openapi3-ts": "^4.4.0",
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.1.2"
+    "vitest": "^3.1.2",
+    "zod": "^3.24.3"
   }
 }

@@ -3,7 +3,7 @@ import swaggerUi from 'swagger-ui-express';
 import { generateOpenAPIDocument } from '@/docs/openAPIDocumentGenerator';
 
 const openAPIDocument = generateOpenAPIDocument();
-export const openAPIRouter = Router();
+export const openAPIRouter : Router = Router();
 
 // Serve JSON version
 openAPIRouter.get('/swagger.json', (_req: Request, res: Response) => {

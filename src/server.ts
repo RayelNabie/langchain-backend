@@ -6,6 +6,7 @@ import { logger } from '@/utils/logger';
 import { env } from '@/config/envConfig';
 import { errorHandlers } from '@/middleware/errorHandler';
 import { rateLimiter } from '@/middleware/rateLimiter';
+import appRouter from '@/routes/routes';
 
 const app: Express = express();
 
@@ -17,7 +18,7 @@ app.use(helmet());
 app.use(rateLimiter);
 
 // Routes
-// Nog geen routes WIP
+app.use(appRouter);
 
 // Error handlers
 app.use(...errorHandlers);

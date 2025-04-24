@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { error } from 'winston';
 import { langchainRouter } from '@/routes/langchain.routes';
 
-const appRouter = Router();
+const appRouter : Router = Router();
 appRouter.use('/api', langchainRouter);
 
 appRouter.use((req, res) => {

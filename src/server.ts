@@ -25,8 +25,8 @@ app.use(helmet());
 app.use(rateLimiter);
 
 // Routes
-app.use(appRouter);
 app.use(swaggerRouter);
+app.use(appRouter);
 
 // Error handlers
 app.use(...errorHandlers);

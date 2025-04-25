@@ -11,8 +11,9 @@ env:
   AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME }}
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
+    environment: langchain
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4.1.0

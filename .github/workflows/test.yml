@@ -1,0 +1,40 @@
+name: Testing
+
+on:
+    workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: Langchain
+    env:
+      AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
+      AZURE_OPENAI_API_INSTANCE_NAME: ${{ secrets.AZURE_OPENAI_API_INSTANCE_NAME }}
+      AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+      AZURE_OPENAI_API_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_API_DEPLOYMENT_NAME }}
+      AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4.1.0
+      - uses: actions/setup-node@v4.3.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: |
+          echo "NODE_ENV=$NODE_ENV"
+          echo "PORT=$PORT"
+          echo "HOST=$HOST"
+          echo "CORS_ORIGIN=$CORS_ORIGIN"
+          echo "COMMON_RATE_LIMIT_WINDOW_MS=$COMMON_RATE_LIMIT_WINDOW_MS"
+          echo "COMMON_RATE_LIMIT_MAX_REQUESTS=$COMMON_RATE_LIMIT_MAX_REQUESTS"
+          echo "CLUSTER_ENABLED=$CLUSTER_ENABLED"
+    
+          if [ -z "$AZURE_OPENAI_API_VERSION" ]; then echo "AZURE_OPENAI_API_VERSION is NOT set"; else echo "AZURE_OPENAI_API_VERSION is set ✅"; fi
+          if [ -z "$AZURE_OPENAI_API_INSTANCE_NAME" ]; then echo "AZURE_OPENAI_API_INSTANCE_NAME is NOT set"; else echo "AZURE_OPENAI_API_INSTANCE_NAME is set ✅"; fi
+          if [ -z "$AZURE_OPENAI_API_KEY" ]; then echo "AZURE_OPENAI_API_KEY is NOT set"; else echo "AZURE_OPENAI_API_KEY is set ✅"; fi
+          if [ -z "$AZURE_OPENAI_API_DEPLOYMENT_NAME" ]; then echo "AZURE_OPENAI_API_DEPLOYMENT_NAME is NOT set"; else echo "AZURE_OPENAI_API_DEPLOYMENT_NAME is set ✅"; fi
+          if [ -z "$AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME" ]; then echo "AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME is NOT set"; else echo "AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME is set ✅"; fi
+    
+
+      - run: pnpm run test

@@ -7,6 +7,13 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
+  AZURE_OPENAI_API_INSTANCE_NAME: ${{ secrets.AZURE_OPENAI_API_INSTANCE_NAME }}
+  AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+  AZURE_OPENAI_API_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_API_DEPLOYMENT_NAME }}
+  AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME }}
+
 jobs:
   setup:
     uses: ./.github/workflows/setup.yml
@@ -15,9 +22,9 @@ jobs:
     uses: ./.github/workflows/lint.yml
     needs: setup
 
-  # test:
-  #   uses: ./.github/workflows/test.yml
-  #   needs: setup
+  test:
+    uses: ./.github/workflows/test.yml
+    needs: setup
 
   build:
     uses: ./.github/workflows/build.yml

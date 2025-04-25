@@ -13,7 +13,7 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: langchain
+    environment: Langchain
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4.1.0

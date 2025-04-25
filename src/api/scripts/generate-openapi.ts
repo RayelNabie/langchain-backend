@@ -5,7 +5,7 @@ import { openApiDocument } from '@/api/openapi/document';
 const outputPath = 'src/api/openapi.generated.json';
 
 writeFileSync(outputPath, JSON.stringify(openApiDocument, null, 2));
-console.log(`✅ OpenAPI JSON opgeslagen naar ${outputPath}`);
+console.log(`saved openAPI JSON: ${outputPath}`);
 
 execSync(`pnpm exec openapi-typescript ${outputPath} -o src/types/openapi.d.ts`, {
   stdio: 'inherit',

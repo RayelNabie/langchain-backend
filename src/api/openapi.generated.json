@@ -1,58 +1,213 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.3",
   "info": {
     "title": "Langchain API",
-    "version": "1.0.0"
+    "version": "0.1.0",
+    "description": "API-documentatie voor het Langchain-project"
   },
   "components": {
     "schemas": {
-      "LangchainRequest": {
+      "ChatRequest": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "input"
+        ]
+      },
+      "ChatResponse": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "output"
+        ]
+      },
+      "AnalyzeRequest": {
         "type": "object",
         "properties": {
           "prompt": {
             "type": "string",
-            "example": "Vertel iets over AI"
+            "minLength": 1
           }
         },
         "required": [
           "prompt"
         ]
       },
-      "LangchainResponse": {
+      "AnalyzeResponse": {
         "type": "object",
         "properties": {
-          "content": {
-            "type": "string",
-            "example": "AI zegt: Hallo"
+          "prompt": {
+            "type": "string"
+          },
+          "score": {
+            "type": "object",
+            "properties": {
+              "clarity": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "brevity": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "specificity": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5
+              }
+            },
+            "required": [
+              "clarity",
+              "brevity",
+              "specificity"
+            ]
+          },
+          "suggestion": {
+            "type": "string"
+          },
+          "reasoning": {
+            "type": "string"
           }
         },
         "required": [
-          "content"
+          "prompt",
+          "score",
+          "suggestion",
+          "reasoning"
         ]
       }
     },
     "parameters": {}
   },
   "paths": {
-    "/langchain": {
+    "/api/chat": {
       "post": {
-        "summary": "Stuur een prompt naar het LLM-model",
+        "tags": [
+          "Chat"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LangchainRequest"
+                "type": "object",
+                "properties": {
+                  "input": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "input"
+                ]
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Het AI antwoord",
+            "description": "Chat response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LangchainResponse"
+                  "type": "object",
+                  "properties": {
+                    "output": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "output"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/analyze": {
+      "post": {
+        "tags": [
+          "Analyze"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "prompt"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Analyze result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "prompt": {
+                      "type": "string"
+                    },
+                    "score": {
+                      "type": "object",
+                      "properties": {
+                        "clarity": {
+                          "type": "number",
+                          "minimum": 1,
+                          "maximum": 5
+                        },
+                        "brevity": {
+                          "type": "number",
+                          "minimum": 1,
+                          "maximum": 5
+                        },
+                        "specificity": {
+                          "type": "number",
+                          "minimum": 1,
+                          "maximum": 5
+                        }
+                      },
+                      "required": [
+                        "clarity",
+                        "brevity",
+                        "specificity"
+                      ]
+                    },
+                    "suggestion": {
+                      "type": "string"
+                    },
+                    "reasoning": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "prompt",
+                    "score",
+                    "suggestion",
+                    "reasoning"
+                  ]
                 }
               }
             }

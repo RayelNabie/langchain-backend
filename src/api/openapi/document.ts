@@ -5,9 +5,10 @@ import { registry } from '@/api/openapi/registry';
 const generator = new OpenApiGeneratorV3(registry.definitions);
 
 export const openApiDocument : OpenAPIObject = generator.generateDocument({
-  openapi: '3.0.0',
+  openapi: '3.0.3',
   info: {
     title: 'Langchain API',
-    version: '1.0.0',
+    version: '0.1.0',
+    description: 'API-documentatie voor het Langchain-project',
   },
 });

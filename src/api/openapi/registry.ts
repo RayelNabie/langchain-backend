@@ -1,31 +1,54 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
-import { LangchainRequest, LangchainResponse } from './schemas';
+import { ChatRequestSchema, ChatResponseSchema } from '@/api/schemas/chat.schema';
+import { AnalyzeRequestSchema, AnalyzeResponseSchema } from '@/api/schemas/analyse.schema';
 
 export const registry = new OpenAPIRegistry();
 
-registry.register('LangchainRequest', LangchainRequest);
-registry.register('LangchainResponse', LangchainResponse);
+// Chat
+registry.register('ChatRequest', ChatRequestSchema);
+registry.register('ChatResponse', ChatResponseSchema);
 
 registry.registerPath({
   method: 'post',
-  path: '/langchain',
-  summary: 'Stuur een prompt naar het LLM-model',
+  path: '/api/chat',
+  tags: ['Chat'],
   request: {
     body: {
       content: {
-        'application/json': {
-          schema: LangchainRequest,
-        },
+        'application/json': { schema: ChatRequestSchema },
       },
     },
   },
   responses: {
     200: {
-      description: 'Het AI antwoord',
+      description: 'Chat response',
       content: {
-        'application/json': {
-          schema: LangchainResponse,
-        },
+        'application/json': { schema: ChatResponseSchema },
+      },
+    },
+  },
+});
+
+// Analyze
+registry.register('AnalyzeRequest', AnalyzeRequestSchema);
+registry.register('AnalyzeResponse', AnalyzeResponseSchema);
+
+registry.registerPath({
+  method: 'post',
+  path: '/api/analyze',
+  tags: ['Analyze'],
+  request: {
+    body: {
+      content: {
+        'application/json': { schema: AnalyzeRequestSchema },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: 'Analyze result',
+      content: {
+        'application/json': { schema: AnalyzeResponseSchema },
       },
     },
   },

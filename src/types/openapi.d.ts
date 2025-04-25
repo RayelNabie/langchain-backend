@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/langchain": {
+    "/api/chat": {
         parameters: {
             query?: never;
             header?: never;
@@ -13,7 +13,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Stuur een prompt naar het LLM-model */
         post: {
             parameters: {
                 query?: never;
@@ -23,17 +22,71 @@ export interface paths {
             };
             requestBody?: {
                 content: {
-                    "application/json": components["schemas"]["LangchainRequest"];
+                    "application/json": {
+                        input: string;
+                    };
                 };
             };
             responses: {
-                /** @description Het AI antwoord */
+                /** @description Chat response */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["LangchainResponse"];
+                        "application/json": {
+                            output: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/analyze": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        prompt: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Analyze result */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            prompt: string;
+                            score: {
+                                clarity: number;
+                                brevity: number;
+                                specificity: number;
+                            };
+                            suggestion: string;
+                            reasoning: string;
+                        };
                     };
                 };
             };
@@ -48,13 +101,24 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        LangchainRequest: {
-            /** @example Vertel iets over AI */
+        ChatRequest: {
+            input: string;
+        };
+        ChatResponse: {
+            output: string;
+        };
+        AnalyzeRequest: {
             prompt: string;
         };
-        LangchainResponse: {
-            /** @example AI zegt: Hallo */
-            content: string;
+        AnalyzeResponse: {
+            prompt: string;
+            score: {
+                clarity: number;
+                brevity: number;
+                specificity: number;
+            };
+            suggestion: string;
+            reasoning: string;
         };
     };
     responses: never;

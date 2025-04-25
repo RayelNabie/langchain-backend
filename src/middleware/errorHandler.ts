@@ -1,16 +1,7 @@
 import type { ErrorRequestHandler, RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-const unexpectedRequest: RequestHandler = (_req, res) => {
-  res.sendStatus(StatusCodes.NOT_FOUND);
-};
-
-const addErrorToRequestLog: ErrorRequestHandler = (err, _req, res, next) => {
-  res.locals.err = err;
-  next(err);
-};
-
 export const errorHandlers: [RequestHandler, ErrorRequestHandler] = [
-  unexpectedRequest,
-  addErrorToRequestLog
+  (_, res) => void res.sendStatus(StatusCodes.NOT_FOUND),
+  (err, _, res, next) => (res.locals.err = err, next(err))
 ];

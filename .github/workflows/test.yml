@@ -15,3 +15,9 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install
       - run: pnpm run test
+    env:
+      AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+      AZURE_OPENAI_API_INSTANCE_NAME: ${{ secrets.AZURE_OPENAI_API_INSTANCE_NAME }}
+      AZURE_OPENAI_API_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_API_DEPLOYMENT_NAME }}
+      AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
+      AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME }}
